@@ -1,0 +1,179 @@
+﻿<Window x:Class="MinhTranTools.CopyFilterFromLinked.CopyFilterFromLinkedWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MinhTranTools.CopyFilterFromLinked"
+             mc:Ignorable="d" 
+       Width="600"
+       Height="680"
+       ShowInTaskbar="True"
+       WindowStartupLocation="CenterScreen"
+       Title="Copy Filter Active Model"
+       ResizeMode="CanResize"
+       >
+
+    <Window.Resources>
+        <DataTemplate x:Key="ItemContainerTemplate">
+            <StackPanel Orientation="Horizontal">
+                <CheckBox VerticalAlignment="Center"
+                         IsChecked="{Binding IsChecked}"
+                         Focusable="False"
+                         Margin="0,0,5,0"
+                         Click="CheckBox_Click"/>
+                <TextBlock Text="{Binding Name}"
+                          VerticalAlignment="Center"
+                          Focusable="False"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <DockPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- GroupBox with Source Header -->
+            <GroupBox Header="Source" BorderBrush="Gray" VerticalAlignment="Stretch" Margin="10" Grid.Row="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="*"/>
+                        <!--<RowDefinition Height="Auto"/>-->
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Search Source View text box -->
+                    <Label Grid.Row="0"
+                           Content="Search Linked Model:" 
+                           Margin="10 5 0 0" 
+                           VerticalAlignment="Top"/>
+
+                    <TextBox Grid.Row="0"
+                             Grid.Column="1" 
+                             x:Name="LinkedModelTextBox" 
+                             Margin="0 5 0 5"
+                             VerticalContentAlignment="Center"
+                             TextChanged="LinkedModelTextBox_TextChanged"
+                             />
+
+                        <!-- Linked Model combobox -->
+                    <Label Grid.Row="1" Content="Linked Model: " Margin="10 0 0 0" VerticalAlignment="Center"/>
+                    <ComboBox Grid.Row="1" x:Name="cbb_LinkedModel" Grid.Column="1" VerticalContentAlignment="Center" Margin="0 5 0 0"  HorizontalAlignment="Stretch" SelectionChanged="cbb_LinkedModel_SelectionChanged" />
+
+
+                    <!-- Search Source View text box -->
+                    <Label Grid.Row="2"
+                           Content="Search Source View:" 
+                           Margin="10 5 0 0" 
+                           VerticalAlignment="Top"/>
+
+                    <TextBox Grid.Row="2"
+                             Grid.Column="1" 
+                             x:Name="SourceViewTextBox" 
+                             Margin="0 5 0 5"
+                             VerticalContentAlignment="Center"
+                             TextChanged="SourceViewTextBox_TextChanged"
+                             />
+
+                    <!-- Source View combobox -->
+                    <Label Grid.Row="3" Content="Source View: " Margin="10 0 0 0" VerticalAlignment="Center"/>
+                    <ComboBox Grid.Row="3" x:Name="cbb_SourceView" Grid.Column="1" VerticalContentAlignment="Center" Margin="0 5 0 0" SelectionChanged="cbb_SourceView_SelectionChanged" HorizontalAlignment="Stretch"/>
+
+                    <!-- Search text box -->
+                    <Label Grid.Row="4" 
+                          Content="Search Filters:" 
+                          Margin="10 5 0 0" 
+                          VerticalAlignment="Top"/>
+
+                    <TextBox  Grid.Row="4" 
+                             Grid.Column="1" 
+                             x:Name="FilterTextBox" 
+                             Margin="0 5 0 5"
+                             VerticalContentAlignment="Center"
+                             TextChanged="FilterTextBox_TextChanged"
+                             />
+
+                    <!-- Filters list view -->
+                    <Label Content="Filters: " Grid.Row="5" Margin="10 10 0 0" VerticalAlignment="Top"/>
+                    <ListView x:Name="lv_Filters" 
+                         Grid.Row="5" 
+                         Grid.Column="1" 
+                         SelectionMode="Extended"
+                         HorizontalContentAlignment="Stretch"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         ItemTemplate="{DynamicResource ItemContainerTemplate}"
+                         />
+
+                    <!-- All/None button -->
+                    <StackPanel Grid.Row="5" Margin="5 5 5 5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Orientation="Horizontal">
+                        <Button x:Name="bt_FilterAll" Content="All" Width="50" Click="bt_FilterAll_Click"/>
+                        <Button x:Name="bt_FilterNone" Content="None"  Width="50" Margin="5 0 0 0" Click="bt_FilterNone_Click"/>
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+
+            <!-- GroupBox with Destination Header-->
+            <GroupBox Header="Destination" BorderBrush="Gray" VerticalAlignment="Stretch" Margin="10" Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="*"/>
+                        <!--<RowDefinition Height="Auto"/>-->
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Search text box-->
+                    <Label 
+                          Content="Search Views:" 
+                          Margin="10 5 0 0" 
+                          VerticalAlignment="Top"/>
+
+                    <TextBox   
+                             Grid.Column="1" 
+                             x:Name="DesViewTextBox" 
+                             Margin="0 5 0 5"
+                             VerticalContentAlignment="Center"
+                             TextChanged="DesViewTextBox_TextChanged"
+                             />
+
+                    <!-- Destition Views list view -->
+                    <Label Grid.Row="1" Content="Destination Views: " Margin="10 0 0 0" VerticalAlignment="Top"/>
+                    <ListView x:Name="lv_DestinationViews" 
+                         Grid.Column="1" 
+                         Grid.Row="1" 
+                         SelectionMode="Extended"
+                         HorizontalContentAlignment="Stretch"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         ItemTemplate="{DynamicResource ItemContainerTemplate}"
+                         />
+
+                    <!-- All/None button -->
+                    <StackPanel Grid.Row="1" Margin="5,5,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Orientation="Horizontal">
+                        <Button x:Name="bt_DesviewAll" Content="All" Width="50" Click="bt_DesviewAll_Click"/>
+                        <Button x:Name="bt_DesviewNone" Content="None"  Width="50" Margin="5 0 0 0" Click="bt_DesviewNone_Click"/>
+                    </StackPanel>
+
+                </Grid>
+            </GroupBox>
+
+            <!-- OK and Cancel buttons -->
+            <StackPanel Grid.Row="2" Margin="5,5,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button x:Name="bt_Ok" Content="OK" Width="100" Click="bt_Ok_Click"/>
+                <Button x:Name="bt_Cancel" Content="Cancel"  Width="100" Margin="5 0 0 0" Click="bt_Cancel_Click"/>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</Window>
